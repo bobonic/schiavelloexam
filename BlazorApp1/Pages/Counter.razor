@@ -1,0 +1,40 @@
+﻿@page "/counter"
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+@*<p role="status">First Number: @firstNumber</p>
+<p role="status">Second Number: @secondNumber</p>*@
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Increment Count</button>
+<button class="btn btn-secondary" @onclick="DecrementCount">Decrement Count</button>
+@code {
+    private int currentCount = 0;
+    private string fibonacci = "";
+
+    private int firstNumber = 0;
+    private int secondNumber = 1;
+
+    private void IncrementCount()
+    {
+       
+        firstNumber = secondNumber;
+        secondNumber = currentCount;
+        currentCount = firstNumber + secondNumber;
+
+    }
+
+    private void DecrementCount()
+    {
+
+        firstNumber = secondNumber - firstNumber;
+        if (firstNumber < 0) firstNumber = 0;
+        secondNumber = currentCount - secondNumber;
+        currentCount = firstNumber + secondNumber;
+    }
+
+
+}

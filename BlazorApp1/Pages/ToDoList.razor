@@ -1,0 +1,101 @@
+﻿@page "/todolist"
+@using BlazorApp1.Models;
+@inject NavigationManager NavigationManager
+<style>
+    .sort-link {
+        cursor: pointer;
+        color: red;
+    }
+</style>
+
+<div class="form-group row">
+    <label for="StartDate" class="col-sm-2 col-form-label">StartDate</label>
+    <div class="col-sm-4">
+        <InputDate class="form-control" @bind-Value="toDoFilter.StartDate" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="EndDate" class="col-sm-2 col-form-label">EndDate</label>
+    <div class="col-sm-4">
+        <InputDate class="form-control" @bind-Value="toDoFilter.EndDate" />
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="Title" class="col-sm-2 col-form-label">Title</label>
+    <div class="col-sm-4">
+        <InputText class="form-control" @bind-Value="toDoFilter.Title" />
+    </div>
+  </div>
+<div class="form-group row">
+    <label for="IsCompleted" class="col-sm-2 col-form-label">Status</label>
+    <div class="col-sm-4">
+        <InputSelect class="form-control" @bind-Value="toDoFilter.IsCompleted">
+            <option value="">All</option>
+            <option value="false">Active</option>
+            <option value="true">Completed</option>
+        </InputSelect>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <button onclick="@(() => SearchToDo())" class="btn btn-primary">Search</button>
+        <a href='/todo/add' class="btn btn-success" role="button">
+            <i class="fas fa-user-plus"></i>
+            Add To Do
+        </a>
+    </div>
+
+</div>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                <span class="sort-link" onclick="@(() => SortColumn("ToDoDate"))">Date</span>
+                <span class="oi oi-@(GetSortStyle("ToDoDate"))"></span>
+            </th>
+            <th>
+                <span class="sort-link" onclick="@(() => SortColumn("Title"))">Title</span>
+                <span class="oi oi-@(GetSortStyle("Title"))"></span>
+            </th>
+            <th>Is Complete</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in toDoList)
+        {
+            <tr>
+                <td>@item.ToDoDate</td>
+                <td>@item.Title</td>
+                <td>
+                    <a onclick="@(() => ToggleToDo(item.Id))">
+                        @if (item.Status)
+                        {
+                            <span class="oi oi-check"></span>
+                        }
+                        else
+                        {
+                            <span class="oi oi-x"></span>
+                        }
+                    </a>
+                </td>
+                <td>
+                    <button onclick="@(() => NavigationManager.NavigateTo($"/todo/edit/{item.Id}"))"><i class="oi oi-pencil"></i></button>
+                    <button onclick="@(() => RemoveTodo(item.Id))"><i class="oi oi-trash"></i></button>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+
+}

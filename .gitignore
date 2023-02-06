@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/BlazorApp1/bin
+/BlazorApp1/obj
+/.vs
+/BlazorApp1/Properties/PublishProfiles
+/BlazorApp1/Properties/ServiceDependencies/schiavelloexam - Web Deploy
